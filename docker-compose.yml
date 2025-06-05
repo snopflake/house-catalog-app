@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:80"
+      - "3000:80"            # <--- akses lewat http://ip-server:3000
     depends_on:
       - backend
 
@@ -13,6 +13,7 @@ services:
       - "5000:5000"
     volumes:
       - ./backend/uploads:/app/uploads
+      - ./backend/.env:/app/.env
     depends_on:
       - db
 
@@ -22,6 +23,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: house_catalog
+    ports:
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
 
