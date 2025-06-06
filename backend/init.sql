@@ -7,9 +7,3 @@ CREATE TABLE IF NOT EXISTS users (
   password VARCHAR(255) NOT NULL,
   role ENUM('admin', 'user', 'designer') DEFAULT 'user'
 );
-
--- Insert user dummy
-INSERT INTO users (email, nama, password, role) VALUES
-('admin@example.com', 'Admin User', 'rahasia', 'admin'),
-('user@example.com', 'Normal User', 'rahasia', 'user'),
-('designer@example.com', 'Designer User', 'rahasia', 'designer');

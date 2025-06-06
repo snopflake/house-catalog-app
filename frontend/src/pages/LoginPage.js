@@ -22,7 +22,7 @@ function LoginPage({ setToken }) {
   return (
     <form onSubmit={handleLogin}>
       <h2>Login</h2>
-      <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+      <input placeholder="Email" value={username} onChange={(e) => setUsername(e.target.value)} required />
       <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
       <button type="submit">Login</button>
     </form>
