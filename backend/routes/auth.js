@@ -44,7 +44,7 @@ router.post('/login', (req, res) => {
     // Create token
     const token = jwt.sign(
       { id: user.id, role: user.role },
-      'jwtSecretKey',   // Ganti dengan secret yang lebih aman di env var nanti
+      'supersecretkey',   // Ganti dengan secret yang lebih aman di env var nanti
       { expiresIn: 3600 }  // 1 hour
     );
 

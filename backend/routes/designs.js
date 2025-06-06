@@ -7,9 +7,9 @@ const { verifyToken, isAdmin, isDesigner } = require('../middleware/auth');
 
 // Setup multer (upload)
 const storage = multer.diskStorage({
-  destination: './uploads/',
+  destination: '/app/uploads', // gunakan path absolut di dalam container
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // filename unik
+    cb(null, Date.now() + path.extname(file.originalname));
   }
 });
 
@@ -27,7 +27,7 @@ const upload = multer({
 // Upload design (Admin & Designer)
 router.post('/', verifyToken, isDesigner, upload.single('image'), (req, res) => {
   const { filename } = req.file;
-  const sql = 'INSERT INTO designs (image) VALUES (?)';
+  const sql = 'INSERT INTO designs (file_path) VALUES (?)';
   db.query(sql, [filename], (err, result) => {
     if (err) return res.status(500).json({ msg: 'Database error', err });
     res.json({ msg: 'Design uploaded', filename });

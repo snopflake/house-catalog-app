@@ -7,3 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
   password VARCHAR(255) NOT NULL,
   role ENUM('admin', 'user', 'designer') DEFAULT 'user'
 );
+
+CREATE TABLE IF NOT EXISTS designs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  file_path VARCHAR(255) NOT NULL
+);

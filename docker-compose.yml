@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:80"            # <--- akses lewat http://ip-server:3000
+      - "3000:80"
     depends_on:
       - backend
 
@@ -12,7 +12,7 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - ./backend/uploads:/app/uploads
+      - uploads_data:/app/uploads
       - ./backend/.env:/app/.env
     depends_on:
       - db
@@ -29,5 +29,22 @@ services:
       - db_data:/var/lib/mysql
       - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  samba:
+    image: dperson/samba
+    container_name: samba
+    restart: always
+    environment:
+      USERID: "1000"
+      GROUPID: "1000"
+    ports:
+      - "139:139"
+      - "445:445"
+    command: >
+      -u "sambauser;sambapass"
+      -s "uploads;/uploads;yes;no;no;sambauser"
+    volumes:
+      - uploads_data:/uploads
+
 volumes:
   db_data:
+  uploads_data:

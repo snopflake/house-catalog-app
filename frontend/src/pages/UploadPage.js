@@ -15,7 +15,7 @@ function UploadPage() {
       const token = localStorage.getItem('token');
       await axios.post(`${backendURL}/api/designs`, formData, {
         headers: {
-          'Authorization': token,
+          'Authorization': 'Bearer ' + token,
           'Content-Type': 'multipart/form-data'
         }
       });
