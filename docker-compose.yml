@@ -36,8 +36,8 @@ services:
       USERID: "1000"
       GROUPID: "1000"
     ports:
-      - "1139:139"
-      - "1445:445"
+      - "139:139"
+      - "445:445"
     command: >
       -u "sambauser;sambapass"
       -s "uploads;/uploads;yes;no;no;sambauser"
