@@ -10,5 +10,8 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS designs (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  design_name VARCHAR(100) NOT NULL,
+  design_country VARCHAR(100) NOT NULL,
+  design_specialty VARCHAR(100) NOT NULL,
   file_path VARCHAR(255) NOT NULL
 );

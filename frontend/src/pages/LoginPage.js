@@ -7,17 +7,20 @@ function LoginPage({ setToken }) {
 
   const backendURL = process.env.REACT_APP_API_URL;
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(`${backendURL}/api/auth/login`, { username, password });
-      setToken(res.data.token);
-      localStorage.setItem('token', res.data.token);
-      alert('Login successful!');
-    } catch (err) {
-      alert('Login failed: ' + err.response?.data?.msg || err.message);
-    }
-  };
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await axios.post(`${backendURL}/api/auth/login`, { username, password });
+    setToken(res.data.token);
+    localStorage.setItem('token', res.data.token);
+    // Tambahkan baris berikut:
+    localStorage.setItem('role', res.data.user.role);
+    localStorage.setItem('user', JSON.stringify(res.data.user));
+    alert('Login successful!');
+  } catch (err) {
+    alert('Login failed: ' + err.response?.data?.msg || err.message);
+  }
+};
 
   return (
     <form onSubmit={handleLogin}>
