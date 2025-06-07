@@ -4,7 +4,7 @@ const Navbar = ({ role, logout }) => {
   return (
     <nav className="bg-gray-800 text-white p-4 shadow-md">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <Link to="/" className="text-xl font-bold mb-4 md:mb-0">Design Platform</Link>
+        <Link to="/" className="text-xl font-bold mb-4 md:mb-0">Dream House Design</Link>
         
         <div className="flex flex-wrap justify-center gap-4 md:gap-6">
           {role === 'admin' && (
