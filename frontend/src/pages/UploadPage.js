@@ -124,7 +124,7 @@ function UploadPage() {
                 <input
                   type="file"
                   accept="image/png"
-                  className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#2C3E50] file:text-[#2C3E50] hover:file:[#2C3E50]"
+                  className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-[#2C3E50] hover:file:[#2C3E50]"
                   onChange={(e) => setFile(e.target.files[0])}
                   required
                 />

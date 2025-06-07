@@ -6,11 +6,11 @@ function Navbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const baseLink = "px-2 py-1 rounded transition-colors duration-150";
+  const baseLink = "px-2 py-1 rounded transition-colors duration-150 text-white";
   const activeLink = "border-b-2 border-white font-semibold";
   const hoverLink = "hover:bg-[#F8F9FA] hover:text-[#2C3E50]";
 
-  // Semua menu
+  // All menu items
   const menu = (
     <>
       <NavLink
@@ -70,6 +70,7 @@ function Navbar() {
           className={({ isActive }) =>
             `${baseLink} ${hoverLink} ${isActive ? activeLink : ""}`
           }
+          onClick={() => setOpen(false)}
         >
           Manage Access
         </NavLink>
@@ -89,7 +90,7 @@ function Navbar() {
           navigate('/');
           window.location.reload();
         }}
-        className="text-white px-3 py-1 rounded ml-2 hover:bg-white hover:text-[#2C3E50] transition-colors duration-150"
+        className={`${baseLink} ${hoverLink} ml-2 mb-2 md:mb-0`}
       >
         Logout
       </button>
@@ -99,10 +100,11 @@ function Navbar() {
   return (
     <>
       <nav className="bg-[#2C3E50] text-white px-4 py-3 flex justify-between items-center relative">
-        {/* Kiri: Logo/Home */}
+        {/* Left: Logo/Home */}
         <div>
-          <NavLink to="/" className="font-bold text-xl ml-2">Dream House Design</NavLink>
+          <NavLink to="/" className="font-bold text-xl ml-2 text-white">Dream House Design</NavLink>
         </div>
+        
         {/* Hamburger button (mobile) */}
         <button
           className="md:hidden flex flex-col justify-center items-center"
@@ -113,14 +115,16 @@ function Navbar() {
           <span className={`block h-1 w-6 bg-white mb-1 rounded transition-all ${open ? "opacity-0" : ""}`}></span>
           <span className={`block h-1 w-6 bg-white rounded transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`}></span>
         </button>
-        {/* Menu kanan */}
+        
+        {/* Desktop menu */}
         <div className="hidden md:flex items-center space-x-4">
           {menu}
         </div>
       </nav>
-      {/* Mobile menu - now placed below the nav */}
+      
+      {/* Mobile menu */}
       {open && (
-        <div className="w-full bg-[#2C3E50] flex flex-col items-start px-4 py-2 space-y-2 md:hidden z-50 shadow-lg">
+        <div className="w-full bg-[#2C3E50] text-white flex flex-col items-start px-4 py-2 space-y-2 md:hidden z-50 shadow-lg">
           {menu}
         </div>
       )}
