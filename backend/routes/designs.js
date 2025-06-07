@@ -37,7 +37,7 @@ router.post('/', verifyToken, isDesigner, upload.single('image'), (req, res) => 
 
 // Lihat semua design (Everyone)
 router.get('/', verifyToken, (req, res) => {
-  db.query('SELECT * FROM designs', (err, results) => {
+  db.query('SELECT * FROM designs WHERE verified = 1', (err, results) => {
     if (err) return res.status(500).json({ msg: 'Database error', err });
     res.json(results);
   });
@@ -48,6 +48,22 @@ router.delete('/:id', verifyToken, isAdmin, (req, res) => {
   const sql = 'DELETE FROM designs WHERE id = ?';
   db.query(sql, [req.params.id], (err, result) => {    if (err) return res.status(500).json({ msg: 'Database error', err });
     res.json({ msg: 'Design deleted' });
+  });
+});
+
+// Endpoint untuk admin: lihat semua designs (verified & unverified)
+router.get('/all', verifyToken, isAdmin, (req, res) => {
+  db.query('SELECT * FROM designs', (err, results) => {
+    if (err) return res.status(500).json({ msg: 'Database error', err });
+    res.json(results);
+  });
+});
+
+// Endpoint untuk verifikasi design
+router.patch('/:id/verify', verifyToken, isAdmin, (req, res) => {
+  db.query('UPDATE designs SET verified = 1 WHERE id = ?', [req.params.id], (err, result) => {
+    if (err) return res.status(500).json({ msg: 'Database error', err });
+    res.json({ msg: 'Design verified' });
   });
 });
 
