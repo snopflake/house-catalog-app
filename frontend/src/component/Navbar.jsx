@@ -1,6 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = ({ role, logout }) => {
+const Navbar = ({ role, setUser }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    navigate('/login');
+  };
+
   return (
     <nav className="bg-gray-800 text-white p-4 shadow-md">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -33,7 +41,7 @@ const Navbar = ({ role, logout }) => {
           )}
           
           <button 
-            onClick={logout} 
+            onClick={handleLogout} 
             className="hover:underline px-2 py-1 bg-red-600 rounded"
           >
             Logout

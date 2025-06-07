@@ -7,12 +7,14 @@ const DesignerDesigns = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchDesigns = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/designs`, {
-          headers: { Authorization: `Bearer ${token}` }
+        const res = await axios.get(`${apiUrl}/api/designs`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
         setDesigns(res.data);
       } catch (err) {
@@ -21,9 +23,9 @@ const DesignerDesigns = () => {
         setLoading(false);
       }
     };
-    
+
     fetchDesigns();
-  }, []);
+  }, [apiUrl]);
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -31,19 +33,19 @@ const DesignerDesigns = () => {
       setError('Please select a file');
       return;
     }
-    
+
     try {
       const token = localStorage.getItem('token');
       const formData = new FormData();
       formData.append('image', file);
-      
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/designs`, formData, {
-        headers: { 
+
+      const res = await axios.post(`${apiUrl}/api/designs`, formData, {
+        headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      
+
       setDesigns([...designs, { id: res.data.id, file_path: res.data.filename }]);
       setFile(null);
       setError('');
@@ -55,10 +57,10 @@ const DesignerDesigns = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/designs/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+      await axios.delete(`${apiUrl}/api/designs/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setDesigns(designs.filter(design => design.id !== id));
+      setDesigns(designs.filter((design) => design.id !== id));
     } catch (err) {
       setError('Failed to delete design');
     }
@@ -70,9 +72,9 @@ const DesignerDesigns = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">My Designs</h1>
-        
+
         {error && <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">{error}</div>}
-        
+
         <div className="mb-8 p-6 border rounded-lg bg-gray-50">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Upload New Design</h2>
           <form onSubmit={handleUpload} className="space-y-4">
@@ -94,20 +96,20 @@ const DesignerDesigns = () => {
             </button>
           </form>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {designs.map(design => (
+          {designs.map((design) => (
             <div key={design.id} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
-              <img 
-                src={`${process.env.REACT_APP_API_URL}/uploads/${design.file_path}`} 
-                alt="Design" 
+              <img
+                src={`${apiUrl}/uploads/${design.file_path}`}
+                alt="Design"
                 className="w-full h-48 object-cover"
               />
               <div className="p-4 flex justify-between bg-gray-50">
                 <button className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition">
                   Edit
                 </button>
-                <button 
+                <button
                   onClick={() => handleDelete(design.id)}
                   className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition"
                 >

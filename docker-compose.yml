@@ -12,8 +12,7 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - uploads_data:/app/uploads
-      - ./backend/.env:/app/.env
+      - ./backend/uploads:/app/uploads
     depends_on:
       - db
 
@@ -43,7 +42,7 @@ services:
       -u "sambauser;sambapass"
       -s "uploads;/uploads;yes;no;no;sambauser"
     volumes:
-      - uploads_data:/uploads
+      - ./backend/uploads:/uploads
 
 volumes:
   db_data:
