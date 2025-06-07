@@ -3,6 +3,9 @@ import axios from 'axios';
 
 function UploadPage() {
   const [file, setFile] = useState(null);
+  const [designName, setDesignName] = useState('');
+  const [designCountry, setDesignCountry] = useState('');
+  const [designSpecialty, setDesignSpecialty] = useState('');
 
   const backendURL = process.env.REACT_APP_API_URL;
 
@@ -10,6 +13,9 @@ function UploadPage() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('image', file);
+    formData.append('design_name', designName);
+    formData.append('design_country', designCountry);
+    formData.append('design_specialty', designSpecialty);
 
     try {
       const token = localStorage.getItem('token');
@@ -21,13 +27,16 @@ function UploadPage() {
       });
       alert('Upload successful!');
     } catch (err) {
-      alert('Upload failed: ' + err.response?.data?.msg || err.message);
+      alert('Upload failed: ' + (err.response?.data?.msg || err.message));
     }
   };
 
   return (
     <form onSubmit={handleUpload}>
       <h2>Upload Design (PNG Only)</h2>
+      <input type="text" placeholder="Design Name" value={designName} onChange={e => setDesignName(e.target.value)} required />
+      <input type="text" placeholder="Design Country" value={designCountry} onChange={e => setDesignCountry(e.target.value)} required />
+      <input type="text" placeholder="Design Specialty" value={designSpecialty} onChange={e => setDesignSpecialty(e.target.value)} required />
       <input type="file" accept="image/png" onChange={(e) => setFile(e.target.files[0])} required />
       <button type="submit">Upload</button>
     </form>
@@ -35,4 +44,3 @@ function UploadPage() {
 }
 
 export default UploadPage;
-
