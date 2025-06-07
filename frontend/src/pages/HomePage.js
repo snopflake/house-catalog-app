@@ -30,10 +30,6 @@ function HomePage() {
     <div>
         <Navbar />
       <h2>Home Page</h2>
-      <button onClick={() => {
-        localStorage.clear();
-        navigate('/login');
-      }}>Logout</button>
       {(role === 'designer' || role === 'admin') && (
         <button onClick={() => navigate('/upload')}>Upload</button>
       )}

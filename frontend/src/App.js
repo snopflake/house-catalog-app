@@ -30,12 +30,6 @@ function App() {
   </>
 )}
       </Routes>
-      {token && (
-        <button onClick={() => {
-          localStorage.removeItem('token');
-          setToken('');
-        }}>Logout</button>
-      )}
     </Router>
   );
 }
