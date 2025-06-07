@@ -34,30 +34,64 @@ function Message() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
-      <div className="max-w-xl mx-auto mt-8">
-        <h2 className="text-xl font-bold mb-4">Pesan Anda</h2>
-        <form onSubmit={handleSend} className="mb-4 flex">
-          <input
-            type="text"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="flex-1 border p-2 rounded-l"
-            placeholder="Tulis pesan..."
-            required
-          />
-          <button type="submit" className="bg-blue-600 text-white px-4 rounded-r">Kirim</button>
-        </form>
-        <ul>
-          {messages.map(msg => (
-            <li key={msg.id} className="mb-3 border-b pb-2">
-              <div><b>Pesan:</b> {msg.messages}</div>
-              <div className="text-sm text-gray-600">Dibalas: {msg.reply || '-'}</div>
-              <div className="text-xs text-gray-400">{new Date(msg.created_at).toLocaleString()}</div>
-            </li>
-          ))}
-        </ul>
+      <div className="flex-grow container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto">
+          {/* Message Card */}
+          <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Pesan Anda</h2>
+              
+              {/* Message Form */}
+              <form onSubmit={handleSend} className="mb-6">
+                <div className="flex shadow-sm">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                    className="flex-1 border border-gray-300 p-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#2C3E50] focus:border-transparent"
+                    placeholder="Tulis pesan..."
+                    required
+                  />
+                  <button 
+                    type="submit" 
+                    className="bg-[#2C3E50] text-white px-4 py-2 rounded-r-lg hover:bg-[#1a2635] transition-colors"
+                  >
+                    Kirim
+                  </button>
+                </div>
+              </form>
+              
+              {/* Messages List */}
+              <div className="space-y-4">
+                {messages.length > 0 ? (
+                  messages.map(msg => (
+                    <div key={msg.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="font-medium text-gray-800 mb-1">{msg.messages}</div>
+                      <div className={`text-sm mb-2 ${msg.reply ? 'text-green-600' : 'text-gray-500'}`}>
+                        <span className="font-medium">Balasan:</span> {msg.reply || 'Belum ada balasan'}
+                      </div>
+                      <div className="text-xs text-gray-400">
+                        {new Date(msg.created_at).toLocaleString('id-ID', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-4 text-gray-500">
+                    Belum ada pesan
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

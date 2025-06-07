@@ -64,6 +64,16 @@ function Navbar() {
           Manage Designs
         </NavLink>
       )}
+      {role === 'admin' && (
+        <NavLink
+          to="/admin/access"
+          className={({ isActive }) =>
+            `${baseLink} ${hoverLink} ${isActive ? activeLink : ""}`
+          }
+        >
+          Manage Access
+        </NavLink>
+      )}
       <NavLink
         to="/profile"
         className={({ isActive }) =>
@@ -79,7 +89,7 @@ function Navbar() {
           navigate('/');
           window.location.reload();
         }}
-        className="bg-red-500 text-white px-3 py-1 rounded ml-2 hover:bg-[#F8F9FA] hover:text-[#2C3E50] transition-colors duration-150"
+        className="text-white px-3 py-1 rounded ml-2 hover:bg-white hover:text-[#2C3E50] transition-colors duration-150"
       >
         Logout
       </button>
@@ -87,32 +97,34 @@ function Navbar() {
   );
 
   return (
-    <nav className="bg-[#2C3E50] text-white px-4 py-3 flex justify-between items-center relative">
-      {/* Kiri: Logo/Home */}
-      <div>
-        <NavLink to="/home" className="font-bold text-xl ml-2">Dream House Design</NavLink>
-      </div>
-      {/* Hamburger button (mobile) */}
-      <button
-        className="md:hidden flex flex-col justify-center items-center"
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle menu"
-      >
-        <span className={`block h-1 w-6 bg-white mb-1 rounded transition-all ${open ? "rotate-45 translate-y-2" : ""}`}></span>
-        <span className={`block h-1 w-6 bg-white mb-1 rounded transition-all ${open ? "opacity-0" : ""}`}></span>
-        <span className={`block h-1 w-6 bg-white rounded transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`}></span>
-      </button>
-      {/* Menu kanan */}
-      <div className="hidden md:flex items-center space-x-4">
-        {menu}
-      </div>
-      {/* Mobile menu */}
+    <>
+      <nav className="bg-[#2C3E50] text-white px-4 py-3 flex justify-between items-center relative">
+        {/* Kiri: Logo/Home */}
+        <div>
+          <NavLink to="/" className="font-bold text-xl ml-2">Dream House Design</NavLink>
+        </div>
+        {/* Hamburger button (mobile) */}
+        <button
+          className="md:hidden flex flex-col justify-center items-center"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+        >
+          <span className={`block h-1 w-6 bg-white mb-1 rounded transition-all ${open ? "rotate-45 translate-y-2" : ""}`}></span>
+          <span className={`block h-1 w-6 bg-white mb-1 rounded transition-all ${open ? "opacity-0" : ""}`}></span>
+          <span className={`block h-1 w-6 bg-white rounded transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`}></span>
+        </button>
+        {/* Menu kanan */}
+        <div className="hidden md:flex items-center space-x-4">
+          {menu}
+        </div>
+      </nav>
+      {/* Mobile menu - now placed below the nav */}
       {open && (
-        <div className="absolute top-full left-0 w-full bg-[#2C3E50] flex flex-col items-start px-4 py-2 space-y-2 md:hidden z-50 shadow-lg">
+        <div className="w-full bg-[#2C3E50] flex flex-col items-start px-4 py-2 space-y-2 md:hidden z-50 shadow-lg">
           {menu}
         </div>
       )}
-    </nav>
+    </>
   );
 }
 

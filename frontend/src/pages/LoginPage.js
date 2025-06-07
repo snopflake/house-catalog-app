@@ -19,7 +19,7 @@ function LoginPage({ setToken }) {
       localStorage.setItem('role', res.data.user.role);
       localStorage.setItem('user', JSON.stringify(res.data.user));
       setError('');
-      navigate('/home'); // arahkan ke halaman home setelah login
+      navigate('/designs'); // arahkan ke halaman home setelah login
     } catch (err) {
       setError(err.response?.data?.msg || 'Login failed');
     }

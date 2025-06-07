@@ -5,10 +5,11 @@ import RegisterPage from './pages/RegisterPage';
 import UploadPage from './pages/UploadPage';
 import DesignPage from './pages/DesignPage';
 import LandingPage from './pages/LandingPage';
-import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 import Message from './pages/Message';
 import ManageMessagePage from './pages/admin/ManageMessagePage';
 import ManageDesignPage from './pages/admin/ManageDesignPage';
+import ManageAccessPage from './pages/admin/ManageAccessPage';
 import './App.css';
 
 function App() {
@@ -26,13 +27,14 @@ function App() {
           </>
         ) : (
           <>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/upload" element={<UploadPage />} />
             <Route path="/designs" element={<DesignPage />} />
+            <Route path="/upload" element={<UploadPage />} />
             <Route path="/messages" element={<Message />} />
             <Route path="/admin/messages" element={<ManageMessagePage />} />
             <Route path="/admin/designs" element={<ManageDesignPage />} />
-            <Route path="*" element={<Navigate to="/home" />} />
+            <Route path="/admin/access" element={<ManageAccessPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="*" element={<Navigate to="/designs" />} />
           </>
         )}
       </Routes>
