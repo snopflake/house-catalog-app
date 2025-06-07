@@ -26,10 +26,10 @@ const upload = multer({
 
 // Upload design (Admin & Designer)
 router.post('/', verifyToken, isDesigner, upload.single('image'), (req, res) => {
-  const { design_name, design_country, design_specialty } = req.body;
+  const { design_name, design_country, design_specialty, created_by } = req.body;
   const { filename } = req.file;
-  const sql = 'INSERT INTO designs (design_name, design_country, design_specialty, file_path) VALUES (?, ?, ?, ?)';
-  db.query(sql, [design_name, design_country, design_specialty, filename], (err, result) => {
+  const sql = 'INSERT INTO designs (design_name, design_country, design_specialty, created_by, file_path) VALUES (?, ?, ?, ?, ?)';
+  db.query(sql, [design_name, design_country, design_specialty, created_by, filename], (err, result) => {
     if (err) return res.status(500).json({ msg: 'Database error', err });
     res.json({ msg: 'Design uploaded', filename });
   });

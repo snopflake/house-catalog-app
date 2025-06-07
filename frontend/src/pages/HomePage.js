@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ function HomePage() {
 
   return (
     <div>
+        <Navbar />
       <h2>Home Page</h2>
       <button onClick={() => {
         localStorage.clear();
@@ -34,7 +37,7 @@ function HomePage() {
       {(role === 'designer' || role === 'admin') && (
         <button onClick={() => navigate('/upload')}>Upload</button>
       )}
-      <button onClick={() => navigate('/gallery')}>Design</button>
+      <button onClick={() => navigate('/designs')}>Design</button>
       <button onClick={() => navigate('/profile')}>Profile</button>
 
       <h3>Daftar Designs</h3>
@@ -56,6 +59,7 @@ function HomePage() {
           <p>Role: {profile.role}</p>
         </div>
       )}
+      <Footer />
     </div>
   );
 }
